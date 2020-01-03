@@ -1,0 +1,12 @@
+FROM jupyter/datascience-notebook
+USER root
+ENV DEBCONF_NOWARNINGS yes
+RUN apt-get update
+RUN apt-get install -y libpq-dev
+USER jovyan
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
+RUN pip install --no-cache-dir ipython-sql
+RUN pip install --no-cache-dir psycopg2
+RUN pip install --no-cache-dir kaggle
+COPY ./kaggle.json /home/jovyan/.kaggle/
