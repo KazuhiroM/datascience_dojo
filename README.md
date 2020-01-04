@@ -4,7 +4,7 @@ Name
 ====
 
 Overview
-docker-compose and Dockerfile for datasciense 100 knocks.
+Dockerfile and docker-compose.yml for datasciense 100 knocks.
 
 ## Description
 
