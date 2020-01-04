@@ -1,7 +1,6 @@
-# datascience_dojo
-
 Name
 ====
+datascience_dojo
 
 Overview
 ====
