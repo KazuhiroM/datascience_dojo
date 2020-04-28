@@ -1,14 +1,14 @@
 version: "3"
- 
+
 services:
   db:
     build:
       context: .
       dockerfile: Dockerfile.postgres
-    image: dal-datascience-postgres
-    container_name: dal-postgres
-    ports: 
-      - "5432:5432"
+    image: dad-datascience-postgres
+    container_name: dad-postgres
+    ports:
+      - "5434:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword1234
@@ -16,17 +16,17 @@ services:
       - POSTGRES_DB=dsdojo_db
       - DATABASE_HOST=localhost
     volumes:
-      - $PWD/docker/db/init:/docker-entrypoint-initdb.d
-      - $PWD/docker/work/data:/tmp/data
+      - ./docker/db/init:/docker-entrypoint-initdb.d
+      - ./docker/work/data:/tmp/data
 
   notebook:
     build:
       context: .
       dockerfile: Dockerfile.notebook
-    image: dal-datascience-notebook
-    container_name: dal-notebook
+    image: dad-datascience-notebook
+    container_name: dad-notebook
     ports:
-      - "8889:8888"
+      - "8890:8888"
     environment:
       - PG_PORT=5432
       - PG_USER=padawan
@@ -36,5 +36,5 @@ services:
     links:
       - db
     volumes:
-      - $PWD/docker/work:/home/jovyan/work
+      - ./docker/work:/home/jovyan/work
     command: start-notebook.sh --NotebookApp.token=''

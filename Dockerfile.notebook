@@ -2,11 +2,25 @@ FROM jupyter/datascience-notebook
 USER root
 ENV DEBCONF_NOWARNINGS yes
 RUN apt-get update
-RUN apt-get install -y libpq-dev
+RUN apt-get install -y libpq-dev fonts-ipafont fonts-ipaexfont
+#RUN curl -L "https://ipafont.ipa.go.jp/IPAexfont/IPAexfont00401.zip" > font.zip
+#RUN unzip font.zip
+RUN cp /usr/share/fonts/opentype/ipaexfont-gothic/ipaexg.ttf /opt/conda/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/ipaexg.ttf
+RUN echo "font.family : IPAexGothic" >>  /opt/conda/lib/python3.7/site-packages/matplotlib/mpl-data/matplotlibrc
+#RUN rm font.zip
+#RUN rm -rf IPAexfont00401
+RUN rm -rf ./.cache
+ARG username=jovyan
+ARG password=jovyan12345
+RUN echo "${username}:${password}" | chpasswd
+RUN gpasswd -a ${username} sudo
+RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER jovyan
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN pip install --no-cache-dir ipython-sql
-RUN pip install --no-cache-dir psycopg2
-RUN pip install --no-cache-dir kaggle
+RUN pip install --no-cache-dir ipython-sql psycopg2 kaggle python-Levenshtein
 COPY ./kaggle.json /home/jovyan/.kaggle/
+COPY ./apputils-extension/themes.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/
+COPY ./terminal-extension/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/terminal-extension/
+RUN Rscript -e "install.packages(c('DBI', 'RPostgreSQL', 'dplyr', 'stringi', 'rstan', 'brms', 'extrafont'), dependencies = TRUE, error = TRUE, repos='https://cran.ism.ac.jp/')"
+RUN Rscript -e "library(extrafont) ; font_import(prompt = FALSE)"
