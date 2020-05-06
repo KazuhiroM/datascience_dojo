@@ -10,6 +10,7 @@ RUN apt-get install -y mecab-ipadic-utf8
 RUN apt-get install -y libpq-dev fonts-ipafont fonts-ipaexfont
 RUN cp /usr/share/fonts/opentype/ipaexfont-gothic/ipaexg.ttf /opt/conda/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/ipaexg.ttf
 RUN echo "font.family : IPAexGothic" >>  /opt/conda/lib/python3.7/site-packages/matplotlib/mpl-data/matplotlibrc
+RUN rm -rf ./.cache
 ARG username=jovyan
 ARG password=jovyan12345
 RUN echo "${username}:${password}" | chpasswd
@@ -18,7 +19,7 @@ RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER jovyan
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN pip install --no-cache-dir ipython-sql psycopg2 kaggle python-Levenshtein tensorflow gensim
+RUN pip install --no-cache-dir ipython-sql psycopg2 kaggle python-Levenshtein tensorflow gensim python-Levenshtein pykalman hmmlearn pystan pymc3 statsmodels
 RUN git clone https://github.com/neologd/mecab-ipadic-neologd.git
 RUN ./mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -a -y
 RUN pip install mecab-python3
