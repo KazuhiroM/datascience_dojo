@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir ipython-sql psycopg2 kaggle python-Levenshtein te
 RUN git clone https://github.com/neologd/mecab-ipadic-neologd.git
 RUN ./mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -a -y
 RUN pip install mecab-python3
-RUM rm -rf mecab-ipadic-neologd
+RUN rm -rf mecab-ipadic-neologd
 COPY ./kaggle.json /home/jovyan/.kaggle/
 COPY ./apputils-extension/themes.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/
 COPY ./terminal-extension/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/terminal-extension/
