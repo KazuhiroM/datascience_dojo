@@ -19,7 +19,7 @@ RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER jovyan
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN pip install --no-cache-dir ipython-sql psycopg2 kaggle python-Levenshtein tensorflow gensim python-Levenshtein pykalman hmmlearn pystan pymc3 statsmodels
+RUN pip install --no-cache-dir ipython-sql psycopg2 kaggle python-Levenshtein tensorflow gensim python-Levenshtein pykalman hmmlearn pystan pymc3 statsmodels arviz
 RUN git clone https://github.com/neologd/mecab-ipadic-neologd.git
 RUN ./mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -a -y
 RUN pip install mecab-python3
